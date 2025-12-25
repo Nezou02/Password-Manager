@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenuButtonPanel extends JPanel implements ActionListener {
+
+    private AppManager appManager = AppManager.GetInstance();
     private JButton loginButton = new JButton("Zaloguj się");
     private JButton registerButton = new JButton("Zarejestruj się");
     private JButton authorButton = new JButton("Autor Aplikacji");
@@ -52,13 +54,13 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            System.out.println("Kliknięto Zaloguj się");
+            appManager.showPanel(PanelsNames.LoginPanel);
         }
         else if (e.getSource() == registerButton) {
             System.out.println("Kliknięto Zarejestruj się");
         }
         else if (e.getSource() == authorButton) {
-            new AuthorFrame();
+            appManager.showPanel(PanelsNames.AuthorPanel);
         }
     }
 }
