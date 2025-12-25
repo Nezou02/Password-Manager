@@ -4,7 +4,7 @@ import java.awt.*;
 public class MainMenuPanel extends JPanel {
     private ImageIcon image = new ImageIcon(Main.class.getResource("/background.png"));
 
-    MainMenuPanel(){
+    public MainMenuPanel(){
         this.setBackground(new Color(0xF3748F)); //0xF3748F kolor tła obrazka
         this.setLayout(new BorderLayout());
 

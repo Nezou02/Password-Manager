@@ -11,7 +11,7 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
     private JButton registerButton = new JButton("Zarejestruj się");
     private JButton authorButton = new JButton("Autor Aplikacji");
 
-    MainMenuButtonPanel(){
+    public MainMenuButtonPanel(){
         this.setOpaque(false);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         ButtonsSetup();

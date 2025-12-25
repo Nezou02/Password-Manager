@@ -2,11 +2,24 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AuthorPanel extends JPanel{
-    private ImageIcon image = new ImageIcon(Main.class.getResource("/AuthorBackground.png"));
 
-    AuthorPanel(){
+    private ImageIcon image = new ImageIcon(Main.class.getResource("/AuthorBackground.png"));
+    private JLabel authorLabel = new JLabel();
+
+    public AuthorPanel(){
+        LabelSetup();
         this.setBackground(new Color(0x123456));
         this.setLayout(new BorderLayout());
+        this.add(authorLabel);
+    }
+
+    private void LabelSetup(){
+        String authorTextToDisplay = "Autorem tej wspaniałej aplikacji jest Wielki Programista Kamil Przęczek";
+        authorLabel.setText(authorTextToDisplay);
+        authorLabel.setFont(new Font("Comic Sans",Font.BOLD,25));
+        authorLabel.setForeground(Color.BLACK);
+        authorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        authorLabel.setVerticalAlignment(SwingConstants.CENTER);
     }
 
     @Override
