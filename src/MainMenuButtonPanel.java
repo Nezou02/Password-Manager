@@ -9,8 +9,7 @@ import java.awt.event.ActionListener;
 public class MainMenuButtonPanel extends JPanel implements ActionListener {
 
     private AppManager appManager = AppManager.GetInstance();
-    private JButton loginButton = new JButton("Zaloguj się");
-    private JButton registerButton = new JButton("Zarejestruj się");
+    private JButton enterButton = new JButton("Zacznij Korzystać");
     private JButton authorButton = new JButton("Autor Aplikacji");
 
     public MainMenuButtonPanel(){
@@ -21,30 +20,23 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
 
     private void ButtonsSetup(){
         
-        loginButton.setFont(new Font("", Font.BOLD, 18));
+        enterButton.setFont(new Font("", Font.BOLD, 18));
         authorButton.setFont(new Font("", Font.BOLD, 18));
-        registerButton.setFont(new Font("", Font.BOLD, 18));
 
-        loginButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        enterButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         authorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        registerButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
-        loginButton.setFocusPainted(false);
+        enterButton.setFocusPainted(false);
         authorButton.setFocusPainted(false);
-        registerButton.setFocusPainted(false);
 
-        loginButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
+        enterButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
         authorButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
-        registerButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
 
-        loginButton.addActionListener(this);
+        enterButton.addActionListener(this);
         authorButton.addActionListener(this);
-        registerButton.addActionListener(this);
         
         this.add(Box.createVerticalGlue());
-        this.add(loginButton);
-        this.add(Box.createVerticalStrut(25));
-        this.add(registerButton);
+        this.add(enterButton);
         this.add(Box.createVerticalStrut(25));
         this.add(authorButton);
         this.add(Box.createVerticalGlue());
@@ -53,11 +45,8 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
     // TODO
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginButton) {
-            appManager.showPanel(PanelsNames.LoginPanel);
-        }
-        else if (e.getSource() == registerButton) {
-            System.out.println("Kliknięto Zarejestruj się");
+        if (e.getSource() == enterButton) {
+            appManager.showPanel(PanelsNames.PasswordManagerPanel);
         }
         else if (e.getSource() == authorButton) {
             appManager.showPanel(PanelsNames.AuthorPanel);

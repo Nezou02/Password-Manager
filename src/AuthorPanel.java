@@ -30,7 +30,7 @@ public class AuthorPanel extends JPanel implements ActionListener {
         String authorTextToDisplay = "Autorem tej wspaniałej aplikacji jest Wielki Programista Kamil Przęczek";
         authorLabel.setText(authorTextToDisplay);
         authorLabel.setFont(new Font("Comic Sans",Font.BOLD,25));
-        authorLabel.setForeground(Color.BLACK);
+        authorLabel.setForeground(Color.WHITE);
         authorLabel.setAlignmentX(JButton.CENTER_ALIGNMENT);
         authorLabel.setHorizontalAlignment(SwingConstants.CENTER);
         authorLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -53,6 +53,7 @@ public class AuthorPanel extends JPanel implements ActionListener {
         int backgroundWidth = background.getWidth(this);
 
         int x = (panelWidth - backgroundWidth) / 2;
+
         g.drawImage(background, x, 0, this);
     }
 

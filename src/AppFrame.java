@@ -6,7 +6,7 @@ public class AppFrame extends JFrame {
     // Panels used by the app
     MainMenuPanel mainMenuPanel = new MainMenuPanel();
     AuthorPanel authorPanel = new AuthorPanel();
-    LoginPanel loginPanel = new LoginPanel();
+    PasswordManagerPanel passwordManagerPanel = new PasswordManagerPanel();
     //
     private ImageIcon appIcon = new ImageIcon(Main.class.getResource("/AppIconTitle.png"));
     private JPanel mainPanel = new JPanel();
@@ -23,8 +23,8 @@ public class AppFrame extends JFrame {
     private void InitializeAppPanels(){
         mainPanel.add(mainMenuPanel, PanelsNames.MainMenuPanel);
         mainPanel.add(authorPanel, PanelsNames.AuthorPanel);
-        mainPanel.add(loginPanel, PanelsNames.LoginPanel);
-        // TODO
+        mainPanel.add(passwordManagerPanel, PanelsNames.PasswordManagerPanel);
+
     }
     private void InitializeAppFrameParameters(){
         this.setTitle("Menadżer Haseł");
