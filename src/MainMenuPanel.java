@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuPanel extends JPanel {
-    ImageIcon image = new ImageIcon(Main.class.getResource("/background.png"));
+    private ImageIcon image = new ImageIcon(Main.class.getResource("/background.png"));
 
     MainMenuPanel(){
         this.setBackground(new Color(0xF3748F)); //0xF3748F kolor tła obrazka
         this.setLayout(new BorderLayout());
 
+        MainMenuButtonPanel mainMenuButtonPanel = new MainMenuButtonPanel();
+        this.add(mainMenuButtonPanel);
     }
 
     @Override

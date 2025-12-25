@@ -1,12 +1,15 @@
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenuButtonPanel extends JPanel implements ActionListener {
-    JButton loginButton = new JButton("Zaloguj się");
-    JButton registerButton = new JButton("Zarejestruj się");
-    JButton authorButton = new JButton("Autor Aplikacji");
+    private JButton loginButton = new JButton("Zaloguj się");
+    private JButton registerButton = new JButton("Zarejestruj się");
+    private JButton authorButton = new JButton("Autor Aplikacji");
 
     MainMenuButtonPanel(){
         this.setOpaque(false);
@@ -27,6 +30,14 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
         loginButton.setFocusPainted(false);
         authorButton.setFocusPainted(false);
         registerButton.setFocusPainted(false);
+
+        loginButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
+        authorButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
+        registerButton.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
+
+        loginButton.addActionListener(this);
+        authorButton.addActionListener(this);
+        registerButton.addActionListener(this);
         
         this.add(Box.createVerticalGlue());
         this.add(loginButton);
@@ -37,6 +48,7 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
         this.add(Box.createVerticalGlue());
     }
 
+    // TODO
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
@@ -46,7 +58,7 @@ public class MainMenuButtonPanel extends JPanel implements ActionListener {
             System.out.println("Kliknięto Zarejestruj się");
         }
         else if (e.getSource() == authorButton) {
-            System.out.println("Kliknięto Autor Aplikacji");
+            new AuthorFrame();
         }
     }
 }
