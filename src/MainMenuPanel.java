@@ -6,6 +6,7 @@ public class MainMenuPanel extends JPanel {
 
     MainMenuPanel(){
         this.setBackground(new Color(0xF3748F)); //0xF3748F kolor tła obrazka
+        this.setLayout(new BorderLayout());
     }
 
     @Override
