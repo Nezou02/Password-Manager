@@ -86,6 +86,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
         site.setText(userRowData.getSite());
         login.setText(userRowData.getLogin());
         password.setText(userRowData.getPassword());
+        handleCheckbox(showPassword);
     }
     private void handleEditButton(){
         DataEnterPanel userData = new DataEnterPanel();

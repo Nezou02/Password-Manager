@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 //glowne ui od managera
 public class PasswordManagerPanel extends JPanel implements ActionListener {
 
@@ -71,6 +72,17 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         }
     }
 
+    private String GenerateRandomPassword(int charactersNumber){
+        String randomPassword ="";
+        Random random = new Random();
+
+        while (charactersNumber > 0){
+            char c = (char)(random.nextInt(93 + 1) + 33);
+            randomPassword += c;
+            charactersNumber--;
+        }
+        return randomPassword;
+    }
     private void HandleAddButton(){
         DataEnterPanel userData = new DataEnterPanel();
         JPanel popUpWindowsPanel = new JPanel();
@@ -87,6 +99,9 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         userData.add(Box.createHorizontalStrut(25));
         popUpWindowsPanel.add(userData);
 
+        checkBox.setSelected(false);
+        numeberOfCharacters.setSelectedIndex(0);
+
         int result = JOptionPane.showOptionDialog(
                 this, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
 
@@ -94,6 +109,11 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
             String site = userData.getSite();
             String login = userData.getLogin();
             String password = userData.getPassword();
+
+            if(checkBox.isSelected()) {
+                int numberOfCharacters = (Integer) numeberOfCharacters.getSelectedItem();
+                password = GenerateRandomPassword(numberOfCharacters);
+            }
 
             PasswordEntry passwordEntry = new PasswordEntry(site, login, password);
             appManager.addRowToTheManager(passwordEntry);
@@ -121,7 +141,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     private class ComboBox extends JComboBox<Integer>{
 
         ComboBox(){
-            for (int i = 0; i <= 25; i++) {
+            for (int i = 1; i <= 26; i++) {
                 this.addItem(i);
             }
         }
