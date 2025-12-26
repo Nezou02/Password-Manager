@@ -105,17 +105,18 @@ public class TableRowPanel extends JPanel implements ActionListener {
         RowTextField loginHeader = new RowTextField();
         RowTextField passwordHeader = new RowTextField();
 
+
         siteHeader.setHorizontalAlignment(JTextField.LEFT);
         loginHeader.setHorizontalAlignment(JTextField.LEFT);
         passwordHeader.setHorizontalAlignment(JTextField.LEFT);
 
-        siteHeader.setFont(new Font("Consolas",Font.PLAIN,35));
-        loginHeader.setFont(new Font("Consolas",Font.PLAIN,35));
-        passwordHeader.setFont(new Font("Consolas",Font.PLAIN,35));
+        siteHeader.setFont(new Font("Arial",Font.PLAIN,35));
+        loginHeader.setFont(new Font("Arial",Font.PLAIN,35));
+        passwordHeader.setFont(new Font("Arial",Font.PLAIN,35));
 
-        siteHeader.setForeground(Color.GREEN);
-        loginHeader.setForeground(Color.GREEN);
-        passwordHeader.setForeground(Color.GREEN);
+        siteHeader.setForeground(Color.WHITE);
+        loginHeader.setForeground(Color.WHITE);
+        passwordHeader.setForeground(Color.WHITE);
 
         siteHeader.setBorder(BorderFactory.createEmptyBorder());
         loginHeader.setBorder(BorderFactory.createEmptyBorder());
@@ -175,9 +176,11 @@ public class TableRowPanel extends JPanel implements ActionListener {
             int width = 150;
             int height = 40;
 
+            this.setFont(new Font("Consolas", Font.BOLD, 18));
             this.setPreferredSize(new Dimension(width,height));
             this.setMinimumSize(new Dimension(width,height));
             this.setMaximumSize(new Dimension(width,height));
+            this.setHorizontalAlignment(JTextField.CENTER);
         }
     }
     private PasswordEntry getUserRowData() { return userRowData; }

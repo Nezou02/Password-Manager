@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+
 //jscroll z panelem box od wierszy
 public class PasswordTablePanel extends JScrollPane {
     private JPanel tablePanel = new JPanel();
@@ -11,6 +13,7 @@ public class PasswordTablePanel extends JScrollPane {
         this.getViewport().setOpaque(false);
 
         this.setViewportView(tablePanel);
+        this.setBorder(BorderFactory.createLineBorder(new Color(135, 206, 250), 2));
         this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
