@@ -6,6 +6,8 @@ public class TableRowPanel extends JPanel {
     private RowTextField site = new RowTextField();
     private RowTextField login = new RowTextField();
     private RowTextField password = new RowTextField();
+    private JPanel buttonPanel = new JPanel();
+
     GridBagConstraints c;
 
     public TableRowPanel(PasswordEntry passwordEntry){
@@ -18,13 +20,14 @@ public class TableRowPanel extends JPanel {
         this.setBackground(Color.DARK_GRAY);
         int heightOfRow = 100;
 
-        this.setPreferredSize(new Dimension(0, heightOfRow));
-        this.setMinimumSize(new Dimension(0, heightOfRow));
+
+        this.setPreferredSize(new Dimension(120, heightOfRow));
+        this.setMinimumSize(new Dimension(120, heightOfRow));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, heightOfRow));
 
+        ButtonSetup();
         addRow(passwordEntry);
     }
-
     public TableRowPanel(){
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);
@@ -42,15 +45,15 @@ public class TableRowPanel extends JPanel {
         InitializeTable();
     }
 
-    public void InitializeTable(){
-        c.insets = new Insets(5, 5, 10, 5);
+    private void InitializeTable(){
+        c.insets = new Insets(5, 7, 10, 7);
         RowTextField siteHeader = new RowTextField();
         RowTextField loginHeader = new RowTextField();
         RowTextField passwordHeader = new RowTextField();
 
-        siteHeader.setHorizontalAlignment(JTextField.CENTER);
-        loginHeader.setHorizontalAlignment(JTextField.CENTER);
-        passwordHeader.setHorizontalAlignment(JTextField.CENTER);
+        siteHeader.setHorizontalAlignment(JTextField.LEFT);
+        loginHeader.setHorizontalAlignment(JTextField.LEFT);
+        passwordHeader.setHorizontalAlignment(JTextField.LEFT);
 
         siteHeader.setFont(new Font("Consolas",Font.PLAIN,35));
         loginHeader.setFont(new Font("Consolas",Font.PLAIN,35));
@@ -68,7 +71,7 @@ public class TableRowPanel extends JPanel {
         loginHeader.setOpaque(false);
         passwordHeader.setOpaque(false);
 
-        siteHeader.setText("NAZWA STRONY");
+        siteHeader.setText("STRONA");
         loginHeader.setText("LOGIN");
         passwordHeader.setText("HASŁO");
 
@@ -82,6 +85,11 @@ public class TableRowPanel extends JPanel {
 
         c.gridx = 2;
         this.add(passwordHeader, c);
+
+        JPanel horizontalAligment = new JPanel();
+        horizontalAligment.setLayout(new GridLayout(1, 2, 10, 0));
+        c.gridx = 3;
+        this.add(horizontalAligment, c);
 
     }
     private void addRow(PasswordEntry passwordEntry){
@@ -101,6 +109,10 @@ public class TableRowPanel extends JPanel {
 
         c.gridx = 2;
         this.add(password, c);
+
+        c.gridx = 3;
+        this.add(buttonPanel);
+
     }
     public void editRow(PasswordEntry passwordEntry){
         site.setText(passwordEntry.getSite());
@@ -113,9 +125,23 @@ public class TableRowPanel extends JPanel {
         public RowTextField(){
             this.setColumns(25);
             this.setEditable(false);
-            this.setPreferredSize(new Dimension(100,40));
-            this.setMinimumSize(new Dimension(100,40));
-            this.setMaximumSize(new Dimension(100,40));
+            int width = 150;
+            int height = 40;
+
+            this.setPreferredSize(new Dimension(width,height));
+            this.setMinimumSize(new Dimension(width,height));
+            this.setMaximumSize(new Dimension(width,height));
         }
     }
+    private void ButtonSetup(){
+        CustomButton edit = new CustomButton("Edytuj");
+        CustomButton delete = new CustomButton("Usuń");
+
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));
+        buttonPanel.setOpaque(false);
+
+        buttonPanel.add(edit);
+        buttonPanel.add(delete);
+    }
+
 }
