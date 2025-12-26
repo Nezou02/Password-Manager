@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TableRowPanel extends JPanel {
+public class TableRowPanel extends JPanel implements ActionListener {
 
     private RowTextField site = new RowTextField();
     private RowTextField login = new RowTextField();
     private RowTextField password = new RowTextField();
     private JPanel buttonPanel = new JPanel();
+    CustomButton editButton = new CustomButton("Edytuj");
+    CustomButton deleteButton = new CustomButton("Usuń");
 
     GridBagConstraints c;
 
@@ -44,6 +48,50 @@ public class TableRowPanel extends JPanel {
 
         InitializeTable();
     }
+
+
+    private void addRow(PasswordEntry passwordEntry){
+        c.insets = new Insets(5, 5, 5, 5);
+        site.setText(passwordEntry.getSite());
+
+        c.gridx = 0;
+        c.gridy = 0;
+
+        login.setText(passwordEntry.getLogin());
+
+        password.setText(passwordEntry.getPassword());
+        this.add(site, c);
+
+        c.gridx = 1;
+        this.add(login, c);
+
+        c.gridx = 2;
+        this.add(password, c);
+
+        c.gridx = 3;
+        this.add(buttonPanel);
+
+    }
+    public void editRow(PasswordEntry passwordEntry){
+        site.setText(passwordEntry.getSite());
+        login.setText(passwordEntry.getLogin());
+        password.setText(passwordEntry.getPassword());
+    }
+    private void handleEditButton(){
+        DataEnterPanel userData = new DataEnterPanel();
+        int result = JOptionPane.showOptionDialog(
+                this, userData, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
+
+        if (result == 0){
+            String site = userData.getSite();
+            String login = userData.getLogin();
+            String password = userData.getPassword();
+
+            PasswordEntry passwordEntry = new PasswordEntry(site, login, password);
+            editRow(passwordEntry);
+        }
+    }
+
 
     private void InitializeTable(){
         c.insets = new Insets(5, 7, 10, 7);
@@ -92,32 +140,22 @@ public class TableRowPanel extends JPanel {
         this.add(horizontalAligment, c);
 
     }
-    private void addRow(PasswordEntry passwordEntry){
-        c.insets = new Insets(5, 5, 5, 5);
-        site.setText(passwordEntry.getSite());
+    private void ButtonSetup(){
+        editButton.addActionListener(this);
+        deleteButton.addActionListener(this);
 
-        c.gridx = 0;
-        c.gridy = 0;
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));
+        buttonPanel.setOpaque(false);
 
-        login.setText(passwordEntry.getLogin());
-
-        password.setText(passwordEntry.getPassword());
-        this.add(site, c);
-
-        c.gridx = 1;
-        this.add(login, c);
-
-        c.gridx = 2;
-        this.add(password, c);
-
-        c.gridx = 3;
-        this.add(buttonPanel);
-
+        buttonPanel.add(editButton);
+        buttonPanel.add(deleteButton);
     }
-    public void editRow(PasswordEntry passwordEntry){
-        site.setText(passwordEntry.getSite());
-        login.setText(passwordEntry.getLogin());
-        password.setText(passwordEntry.getPassword());
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == editButton){
+            handleEditButton();
+        }
     }
 
     private class RowTextField extends JTextField{
@@ -133,15 +171,4 @@ public class TableRowPanel extends JPanel {
             this.setMaximumSize(new Dimension(width,height));
         }
     }
-    private void ButtonSetup(){
-        CustomButton edit = new CustomButton("Edytuj");
-        CustomButton delete = new CustomButton("Usuń");
-
-        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));
-        buttonPanel.setOpaque(false);
-
-        buttonPanel.add(edit);
-        buttonPanel.add(delete);
-    }
-
 }
