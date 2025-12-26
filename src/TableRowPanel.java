@@ -33,7 +33,7 @@ public class TableRowPanel extends JPanel {
         c.fill = GridBagConstraints.NONE;
 
         this.setBackground(Color.DARK_GRAY);
-        int heightOfRow = 100;
+        int heightOfRow = 50;
 
         this.setPreferredSize(new Dimension(0, heightOfRow));
         this.setMinimumSize(new Dimension(0, heightOfRow));
