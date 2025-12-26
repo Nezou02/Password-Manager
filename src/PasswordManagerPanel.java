@@ -10,6 +10,8 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     private CustomButton returnButton = new CustomButton("Powrót");
     private CustomButton passwordsWiper = new CustomButton("Wyczyść Dane");
     private CustomButton addButton = new CustomButton("Dodaj Dane");
+    private CustomButton sortingButton = new CustomButton("Sortuj (Najstarsze/Najnowsze)");
+    private CustomButton saveToFileButton = new CustomButton("Zapis Do Pliku");
     private CheckBox checkBox = new CheckBox();
     private ComboBox numeberOfCharacters = new ComboBox();
 
@@ -29,6 +31,8 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         returnButton.addActionListener(this);
         passwordsWiper.addActionListener(this);
         addButton.addActionListener(this);
+        sortingButton.addActionListener(this);
+        saveToFileButton.addActionListener(this);
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.setOpaque(false);
@@ -38,27 +42,13 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         buttonsPanel.add(passwordsWiper);
         buttonsPanel.add(Box.createHorizontalStrut(25));
         buttonsPanel.add(addButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(sortingButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(saveToFileButton);
         buttonsPanel.add(Box.createHorizontalGlue());
     }
 
-
-    public PasswordTablePanel getPasswordTablePanel() { return passwordTablePanel; }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-       super.paintComponent(g);
-
-       Image background = image.getImage();
-       int panelWidth = getWidth();
-       int panelHeight = getHeight();
-
-       int backgroundWidth = background.getWidth(this);
-       int backgroundHeight = background.getHeight(this);
-
-       int x = (panelWidth - backgroundWidth) / 2;
-       int y = (panelHeight - backgroundHeight) / 2;
-       g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-   }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -119,6 +109,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
             appManager.addRowToTheManager(passwordEntry);
         }
     }
+    public PasswordTablePanel getPasswordTablePanel() { return passwordTablePanel; }
     private class MessageToUser extends JTextField{
 
         MessageToUser(String message){
@@ -145,5 +136,20 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
                 this.addItem(i);
             }
         }
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image background = image.getImage();
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
+        int backgroundWidth = background.getWidth(this);
+        int backgroundHeight = background.getHeight(this);
+
+        int x = (panelWidth - backgroundWidth) / 2;
+        int y = (panelHeight - backgroundHeight) / 2;
+        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
 }
