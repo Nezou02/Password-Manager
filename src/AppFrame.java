@@ -4,9 +4,9 @@ import java.awt.*;
 public class AppFrame extends JFrame {
 
     // Panels used by the app
-    MainMenuPanel mainMenuPanel = new MainMenuPanel();
-    AuthorPanel authorPanel = new AuthorPanel();
-    PasswordManagerPanel passwordManagerPanel = new PasswordManagerPanel();
+    private MainMenuPanel mainMenuPanel = new MainMenuPanel();
+    private AuthorPanel authorPanel = new AuthorPanel();
+    private PasswordManagerPanel passwordManagerPanel = new PasswordManagerPanel();
     //
     private ImageIcon appIcon = new ImageIcon(Main.class.getResource("/AppIconTitle.png"));
     private JPanel mainPanel = new JPanel();
@@ -36,4 +36,5 @@ public class AppFrame extends JFrame {
     }
     public CardLayout getCardLayout() { return cardLayout; }
     public JPanel getMainPanel() { return mainPanel; }
+    public PasswordManagerPanel getPasswordManagerPanel() { return passwordManagerPanel; }
 }
