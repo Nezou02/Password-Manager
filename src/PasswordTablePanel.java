@@ -12,8 +12,9 @@ public class PasswordTablePanel extends JScrollPane {
 
         this.setViewportView(tablePanel);
         this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
+        tablePanel.add(new TableRowPanel());
     }
 
     public void AddRow(TableRowPanel tableRow){

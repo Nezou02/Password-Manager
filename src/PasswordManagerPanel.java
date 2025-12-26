@@ -61,9 +61,52 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         if (e.getSource() == returnButton)
             appManager.showPanel(PanelsNames.MainMenuPanel);
         else if (e.getSource() == addButton){
-            PasswordEntry passwordEntry = new PasswordEntry("site", "login", "haslo");
-            appManager.addRowToTheManager(passwordEntry);
+            HandleAddButton();
         }
 
+    }
+
+    private void HandleAddButton(){
+        DataEnterPanel userData = new DataEnterPanel();
+        int result = JOptionPane.showOptionDialog(
+                this, userData, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
+
+        if (result == 0){
+            String site = userData.getSite();
+            String login = userData.getLogin();
+            String password = userData.getPassword();
+
+            PasswordEntry passwordEntry = new PasswordEntry(site, login, password);
+            appManager.addRowToTheManager(passwordEntry);
+        }
+    }
+    private class DataEnterPanel extends JPanel{
+        private JTextField site = new JTextField(25);
+        private JTextField login = new JTextField(25);
+        private JTextField password = new JTextField(25);
+
+        private DataEnterPanel(){
+               this.setSize(800, 800);
+               this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+               TextFieldSetup();
+        }
+
+        private void TextFieldSetup(){
+            site.setText("nazwa strony");
+            login.setText("login");
+            password.setText("haslo");
+
+            this.add(Box.createHorizontalGlue());
+            this.add(Box.createHorizontalStrut(25));
+            this.add(site);
+            this.add(Box.createHorizontalStrut(25));
+            this.add(login);
+            this.add(Box.createHorizontalStrut(25));
+            this.add(password);
+            this.add(Box.createHorizontalGlue());
+        }
+        private String getSite() { return site.getText(); }
+        private String getLogin() { return login.getText(); }
+        private String getPassword() { return password.getText(); }
     }
 }
