@@ -6,7 +6,7 @@ public class DataEnterPanel extends JPanel {
     private JTextField password = new JTextField(25);
 
     public DataEnterPanel(){
-        this.setSize(800, 800);
+        this.setSize(800, 1200);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         TextFieldSetup();
     }

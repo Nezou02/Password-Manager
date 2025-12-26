@@ -11,6 +11,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
     private JPanel buttonPanel = new JPanel();
     private CustomButton editButton = new CustomButton("Edytuj");
     private CustomButton deleteButton = new CustomButton("Usuń");
+    private PasswordCheckBox showPassword = new PasswordCheckBox();
     private PasswordEntry userRowData;
     private AppManager appManager = AppManager.GetInstance();
 
@@ -41,6 +42,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
         c = new GridBagConstraints();
         c.weightx = 1;
         c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.WEST;
 
         this.setBackground(Color.DARK_GRAY);
         int heightOfRow = 50;
@@ -56,6 +58,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
     private void addRow(PasswordEntry passwordEntry){
         c.insets = new Insets(5, 5, 5, 5);
         userRowData = new PasswordEntry(passwordEntry.getSite(), passwordEntry.getLogin(), passwordEntry.getPassword());
+
 
         site.setText(userRowData.getSite());
 
@@ -75,6 +78,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
 
         c.gridx = 3;
         this.add(buttonPanel);
+        handleCheckbox(showPassword);
     }
     public void editRow(PasswordEntry passwordEntry){
         userRowData = new PasswordEntry(passwordEntry.getSite(), passwordEntry.getLogin(), passwordEntry.getPassword());
@@ -97,22 +101,39 @@ public class TableRowPanel extends JPanel implements ActionListener {
             editRow(passwordEntry);
         }
     }
+    private void handleCheckbox(PasswordCheckBox showPassword){
+        if(showPassword.isSelected()){
+            int passwordLength = userRowData.getPassword().length();
+            String hiddenPassword = "";
+
+            while (passwordLength > 0){
+                hiddenPassword += "*";
+                passwordLength--;
+            }
+            password.setText(hiddenPassword);
+        }
+        else{
+            password.setText(userRowData.getPassword());
+        }
+    }
 
 
     private void InitializeTable(){
-        c.insets = new Insets(5, 7, 10, 7);
+        c.insets = new Insets(5, 20, 5, 5);
         RowTextField siteHeader = new RowTextField();
         RowTextField loginHeader = new RowTextField();
         RowTextField passwordHeader = new RowTextField();
+        passwordHeader.setOpaque(true);
 
 
         siteHeader.setHorizontalAlignment(JTextField.LEFT);
         loginHeader.setHorizontalAlignment(JTextField.LEFT);
         passwordHeader.setHorizontalAlignment(JTextField.LEFT);
 
-        siteHeader.setFont(new Font("Arial",Font.PLAIN,35));
-        loginHeader.setFont(new Font("Arial",Font.PLAIN,35));
-        passwordHeader.setFont(new Font("Arial",Font.PLAIN,35));
+        siteHeader.setFont(new Font("Arial",Font.PLAIN,30));
+        loginHeader.setFont(new Font("Arial",Font.PLAIN,30));
+        passwordHeader.setFont(new Font("Arial",Font.PLAIN,30));
+
 
         siteHeader.setForeground(Color.WHITE);
         loginHeader.setForeground(Color.WHITE);
@@ -134,26 +155,26 @@ public class TableRowPanel extends JPanel implements ActionListener {
         c.gridy = 0;
 
         this.add(siteHeader, c);
-
         c.gridx = 1;
         this.add(loginHeader, c);
-
         c.gridx = 2;
         this.add(passwordHeader, c);
-
-        JPanel horizontalAligment = new JPanel();
-        horizontalAligment.setLayout(new GridLayout(1, 2, 10, 0));
+        JPanel horizontalAlignment = new JPanel();
+        horizontalAlignment.setLayout(new GridLayout(1, 3, 10, 0));
         c.gridx = 3;
-        this.add(horizontalAligment, c);
+        this.add(horizontalAlignment, c);
 
     }
     private void ButtonSetup(){
+
         editButton.addActionListener(this);
         deleteButton.addActionListener(this);
+        showPassword.addActionListener(this);
 
-        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));
+        buttonPanel.setLayout(new GridLayout(1, 3, 10, 0));
         buttonPanel.setOpaque(false);
 
+        buttonPanel.add(showPassword);
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);
     }
@@ -166,6 +187,9 @@ public class TableRowPanel extends JPanel implements ActionListener {
         else if (e.getSource() == deleteButton){
             appManager.removeData(this);
         }
+        else if (e.getSource() == showPassword) {
+            handleCheckbox(showPassword);
+        }
     }
 
     private class RowTextField extends JTextField{
@@ -176,12 +200,20 @@ public class TableRowPanel extends JPanel implements ActionListener {
             int width = 150;
             int height = 40;
 
+            this.setHorizontalAlignment(JTextField.CENTER);
             this.setFont(new Font("Consolas", Font.BOLD, 18));
             this.setPreferredSize(new Dimension(width,height));
             this.setMinimumSize(new Dimension(width,height));
             this.setMaximumSize(new Dimension(width,height));
-            this.setHorizontalAlignment(JTextField.CENTER);
         }
     }
+    private class PasswordCheckBox extends JCheckBox{
+        private PasswordCheckBox(){
+            this.setOpaque(false);
+            this.setHorizontalAlignment(JCheckBox.CENTER);
+            this.setSelected(true);
+        }
+    }
+
     private PasswordEntry getUserRowData() { return userRowData; }
 }

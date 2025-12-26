@@ -9,6 +9,9 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     private CustomButton returnButton = new CustomButton("Powrót");
     private CustomButton passwordsWiper = new CustomButton("Wyczyść Dane");
     private CustomButton addButton = new CustomButton("Dodaj Dane");
+    private CheckBox checkBox = new CheckBox();
+    private ComboBox numeberOfCharacters = new ComboBox();
+
     private AppManager appManager = AppManager.GetInstance();
     private JPanel buttonsPanel = new JPanel();
     private PasswordTablePanel passwordTablePanel = new PasswordTablePanel();
@@ -70,8 +73,22 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
 
     private void HandleAddButton(){
         DataEnterPanel userData = new DataEnterPanel();
+        JPanel popUpWindowsPanel = new JPanel();
+        MessageToUser messageToUser = new MessageToUser("Jeśli chcesz wygenerować losowe hasło, zaznacz pole wyboru \"ptaszkiem\" oraz wybierz liczbę znaków");
+        popUpWindowsPanel.setLayout(new BoxLayout(popUpWindowsPanel, BoxLayout.Y_AXIS));
+
+        popUpWindowsPanel.add(Box.createVerticalStrut(20));
+        popUpWindowsPanel.add(messageToUser);
+        popUpWindowsPanel.add(Box.createVerticalStrut(20));
+
+        userData.add(checkBox);
+        userData.add(Box.createHorizontalStrut(25));
+        userData.add(numeberOfCharacters);
+        userData.add(Box.createHorizontalStrut(25));
+        popUpWindowsPanel.add(userData);
+
         int result = JOptionPane.showOptionDialog(
-                this, userData, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
+                this, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
 
         if (result == 0){
             String site = userData.getSite();
@@ -80,6 +97,33 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
 
             PasswordEntry passwordEntry = new PasswordEntry(site, login, password);
             appManager.addRowToTheManager(passwordEntry);
+        }
+    }
+    private class MessageToUser extends JTextField{
+
+        MessageToUser(String message){
+            this.setText(message);
+            this.setOpaque(false);
+            this.setEditable(false);
+            this.setFocusable(false);
+            this.setFont(new Font("Ariel", Font.BOLD, 18));
+            this.setBorder(BorderFactory.createEmptyBorder());
+            this.setHorizontalAlignment(JTextField.CENTER);
+        }
+    }
+    private class CheckBox extends JCheckBox{
+        private CheckBox(){
+            this.setOpaque(false);
+            this.setHorizontalAlignment(JCheckBox.CENTER);
+            this.setSelected(false);
+        }
+    }
+    private class ComboBox extends JComboBox<Integer>{
+
+        ComboBox(){
+            for (int i = 0; i <= 25; i++) {
+                this.addItem(i);
+            }
         }
     }
 }
