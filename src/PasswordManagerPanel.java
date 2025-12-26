@@ -63,6 +63,9 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         else if (e.getSource() == addButton){
             HandleAddButton();
         }
+        else if (e.getSource() == passwordsWiper){
+            appManager.clearManager();
+        }
 
     }
 

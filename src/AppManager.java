@@ -33,4 +33,7 @@ public class AppManager {
         TableRowPanel tableRowPanel = new TableRowPanel(passwordEntry);
         passwordTablePanel.AddRow(tableRowPanel);
     }
+    public void clearManager(){
+        passwordTablePanel.ClearTable();
+    }
 }

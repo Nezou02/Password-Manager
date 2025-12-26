@@ -23,5 +23,11 @@ public class PasswordTablePanel extends JScrollPane {
         tablePanel.revalidate();
         tablePanel.repaint();
     }
+    public void ClearTable(){
+        tablePanel.removeAll();
+        tablePanel.add(new TableRowPanel());
+        tablePanel.revalidate();
+        tablePanel.repaint();
+    }
 
 }
