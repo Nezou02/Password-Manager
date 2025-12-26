@@ -9,8 +9,10 @@ public class TableRowPanel extends JPanel implements ActionListener {
     private RowTextField login = new RowTextField();
     private RowTextField password = new RowTextField();
     private JPanel buttonPanel = new JPanel();
-    CustomButton editButton = new CustomButton("Edytuj");
-    CustomButton deleteButton = new CustomButton("Usuń");
+    private CustomButton editButton = new CustomButton("Edytuj");
+    private CustomButton deleteButton = new CustomButton("Usuń");
+    private PasswordEntry userRowData;
+    private AppManager appManager = AppManager.GetInstance();
 
     GridBagConstraints c;
 
@@ -31,6 +33,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
 
         ButtonSetup();
         addRow(passwordEntry);
+        appManager.addData(this);
     }
     public TableRowPanel(){
         this.setLayout(new GridBagLayout());
@@ -52,14 +55,16 @@ public class TableRowPanel extends JPanel implements ActionListener {
 
     private void addRow(PasswordEntry passwordEntry){
         c.insets = new Insets(5, 5, 5, 5);
-        site.setText(passwordEntry.getSite());
+        userRowData = new PasswordEntry(passwordEntry.getSite(), passwordEntry.getLogin(), passwordEntry.getPassword());
+
+        site.setText(userRowData.getSite());
 
         c.gridx = 0;
         c.gridy = 0;
 
-        login.setText(passwordEntry.getLogin());
+        login.setText(userRowData.getLogin());
 
-        password.setText(passwordEntry.getPassword());
+        password.setText(userRowData.getPassword());
         this.add(site, c);
 
         c.gridx = 1;
@@ -70,12 +75,13 @@ public class TableRowPanel extends JPanel implements ActionListener {
 
         c.gridx = 3;
         this.add(buttonPanel);
-
     }
     public void editRow(PasswordEntry passwordEntry){
-        site.setText(passwordEntry.getSite());
-        login.setText(passwordEntry.getLogin());
-        password.setText(passwordEntry.getPassword());
+        userRowData = new PasswordEntry(passwordEntry.getSite(), passwordEntry.getLogin(), passwordEntry.getPassword());
+
+        site.setText(userRowData.getSite());
+        login.setText(userRowData.getLogin());
+        password.setText(userRowData.getPassword());
     }
     private void handleEditButton(){
         DataEnterPanel userData = new DataEnterPanel();
@@ -156,6 +162,9 @@ public class TableRowPanel extends JPanel implements ActionListener {
         if (e.getSource() == editButton){
             handleEditButton();
         }
+        else if (e.getSource() == deleteButton){
+            appManager.removeData(this);
+        }
     }
 
     private class RowTextField extends JTextField{
@@ -171,4 +180,5 @@ public class TableRowPanel extends JPanel implements ActionListener {
             this.setMaximumSize(new Dimension(width,height));
         }
     }
+    private PasswordEntry getUserRowData() { return userRowData; }
 }

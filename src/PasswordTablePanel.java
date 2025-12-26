@@ -19,7 +19,6 @@ public class PasswordTablePanel extends JScrollPane {
 
     public void AddRow(TableRowPanel tableRow){
         tablePanel.add(tableRow);
-        tablePanel.add(Box.createVerticalStrut(10));
         tablePanel.revalidate();
         tablePanel.repaint();
     }
@@ -29,5 +28,9 @@ public class PasswordTablePanel extends JScrollPane {
         tablePanel.revalidate();
         tablePanel.repaint();
     }
-
+    public void RemoveRow(TableRowPanel tableRow){
+        tablePanel.remove(tableRow);
+        tablePanel.revalidate();
+        tablePanel.repaint();
+    }
 }
