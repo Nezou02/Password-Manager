@@ -12,6 +12,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     private CustomButton addButton = new CustomButton("Dodaj Dane");
     private CustomButton sortingButton = new CustomButton("Sortuj (Najstarsze/Najnowsze)");
     private CustomButton saveToFileButton = new CustomButton("Zapis Do Pliku");
+    private CustomButton readFileButton = new CustomButton("Odczyt haseł z pliku szyfrowanego");
     private CheckBox checkBox = new CheckBox();
     private ComboBox numeberOfCharacters = new ComboBox();
 
@@ -33,6 +34,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         addButton.addActionListener(this);
         sortingButton.addActionListener(this);
         saveToFileButton.addActionListener(this);
+        readFileButton.addActionListener(this);
 
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.setOpaque(false);
@@ -46,6 +48,8 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         buttonsPanel.add(sortingButton);
         buttonsPanel.add(Box.createHorizontalStrut(25));
         buttonsPanel.add(saveToFileButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(readFileButton);
         buttonsPanel.add(Box.createHorizontalGlue());
     }
 
@@ -60,8 +64,38 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         else if (e.getSource() == passwordsWiper){
             appManager.clearManager();
         }
+        else if (e.getSource() == saveToFileButton){
+            handleSaveToFile();
+        }
     }
 
+    private void handleSaveToFile() {
+        MessageToUser message = new MessageToUser("Podaj hasło którym plik będzie szyfrowany (będzie potrzebne do odczytu");
+        JTextField passwordTextField = new JTextField();
+
+
+        JPanel popUpWindowsPanel = new JPanel();
+        popUpWindowsPanel.setLayout(new BoxLayout(popUpWindowsPanel, BoxLayout.Y_AXIS));
+
+        popUpWindowsPanel.add(Box.createVerticalGlue());
+        popUpWindowsPanel.add(Box.createVerticalStrut(25));
+        popUpWindowsPanel.add(message);
+        popUpWindowsPanel.add(Box.createVerticalStrut(25));
+        popUpWindowsPanel.add(passwordTextField);
+        popUpWindowsPanel.add(Box.createVerticalGlue());
+
+        int result = JOptionPane.showOptionDialog(
+                this, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
+
+        if (passwordTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Hasło jest obowiązkowe!!", "Zapis Pliku", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (result == 0){
+            appManager.saveDataToEncryptedFile(passwordTextField.getText());
+        }
+    }
     private String GenerateRandomPassword(int charactersNumber){
         String randomPassword ="";
         Random random = new Random();

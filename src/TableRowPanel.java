@@ -216,5 +216,5 @@ public class TableRowPanel extends JPanel implements ActionListener {
         }
     }
 
-    private PasswordEntry getUserRowData() { return userRowData; }
+    public PasswordEntry getUserRowData() { return userRowData; }
 }
