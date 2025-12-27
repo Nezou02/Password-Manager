@@ -58,14 +58,75 @@ public class AppManager {
         System.out.println("Liczba elementów w liście po dodaniu: " + userData.size());
     }
     public void readDataFromEncryptedFile(){
-        // TODO
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Wybierz zaszyfrowany plik do odczytania");
+        int userSelection = fileChooser.showOpenDialog(mainPanel);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            MessageToUser message = new MessageToUser("Podaj hasło którym plik jets szyfrowany");
+            JTextField passwordTextField = new JTextField();
+
+            JPanel popUpWindowsPanel = new JPanel();
+            popUpWindowsPanel.setLayout(new BoxLayout(popUpWindowsPanel, BoxLayout.Y_AXIS));
+
+            popUpWindowsPanel.add(Box.createVerticalGlue());
+            popUpWindowsPanel.add(Box.createVerticalStrut(25));
+            popUpWindowsPanel.add(message);
+            popUpWindowsPanel.add(Box.createVerticalStrut(25));
+            popUpWindowsPanel.add(passwordTextField);
+            popUpWindowsPanel.add(Box.createVerticalGlue());
+
+            int result = JOptionPane.showOptionDialog(
+                    mainPanel, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
+
+            if (passwordTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Hasło jest obowiązkowe do odczytania pliku!!", "Odczyt Pliku", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (result == 0){
+                DecryptFile(passwordTextField.getText(), selectedFile);
+            }
+        }
+    }
+
+    private void DecryptFile(String passwordGivenByUser, File file) {
+        try{
+
+            byte[] encrypted = Files.readAllBytes(file.toPath());
+
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            byte[] keyBytes = sha.digest(passwordGivenByUser.getBytes(StandardCharsets.UTF_8));
+            SecretKeySpec key = new SecretKeySpec(keyBytes, 0, 16, "AES");
+
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, key);
+
+            byte[] decrypted = cipher.doFinal(encrypted);
+            String originalText = new String(decrypted, StandardCharsets.UTF_8);
+
+            //addDataToManager(originalText);
+
+        } catch (javax.crypto.BadPaddingException e) {
+            JOptionPane.showMessageDialog(mainPanel, "Złe hasło!", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
+        } catch (javax.crypto.IllegalBlockSizeException e) {
+            JOptionPane.showMessageDialog(mainPanel, "Nie jest to zaszyfrowany plik AES", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(mainPanel, "Inny błąd podczas odszyfrowywania!", "Błąd", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void addDataToManager(String originalText) {
+
     }
     public void saveDataToEncryptedFile(String passwordToFile){
         byte[] dataToSave;
 
         if(userData.size() >= 1){
             dataToSave = encryptBytes(passwordToFile);
-            selectFilePath(dataToSave);
+            selectFilePathAndSave(dataToSave);
         }
         else{
             JOptionPane.showMessageDialog(mainPanel, "Nie można zapisać pustej listy", "Zapis Pliku", JOptionPane.WARNING_MESSAGE);
@@ -116,7 +177,7 @@ public class AppManager {
         }
         return encrypted;
     }
-    private void selectFilePath(byte[] encryptedData){
+    private void selectFilePathAndSave(byte[] encryptedData){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Wybierz miejsce do zapisania pliku");
         int userSelection = fileChooser.showSaveDialog(mainPanel);

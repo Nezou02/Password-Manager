@@ -67,6 +67,9 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         else if (e.getSource() == saveToFileButton){
             handleSaveToFile();
         }
+        else if (e.getSource() == readFileButton){
+            appManager.readDataFromEncryptedFile();
+        }
     }
 
     private void handleSaveToFile() {
@@ -144,18 +147,6 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         }
     }
     public PasswordTablePanel getPasswordTablePanel() { return passwordTablePanel; }
-    private class MessageToUser extends JTextField{
-
-        MessageToUser(String message){
-            this.setText(message);
-            this.setOpaque(false);
-            this.setEditable(false);
-            this.setFocusable(false);
-            this.setFont(new Font("Ariel", Font.BOLD, 18));
-            this.setBorder(BorderFactory.createEmptyBorder());
-            this.setHorizontalAlignment(JTextField.CENTER);
-        }
-    }
     private class CheckBox extends JCheckBox{
         private CheckBox(){
             this.setOpaque(false);
