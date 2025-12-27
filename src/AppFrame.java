@@ -29,7 +29,7 @@ public class AppFrame extends JFrame {
     private void InitializeAppFrameParameters(){
         this.setTitle("Menadżer Haseł");
         this.setIconImage(appIcon.getImage());
-        this.setSize(1220, 700);
+        this.setSize(1100, 700);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

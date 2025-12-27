@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +13,8 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     private CustomButton returnButton = new CustomButton("Powrót");
     private CustomButton passwordsWiper = new CustomButton("Wyczyść Dane");
     private CustomButton addButton = new CustomButton("Dodaj Dane");
-    private CustomButton sortingButton = new CustomButton("Sortuj (Najstarsze/Najnowsze)");
+    private SortingTextField sortingTextField = new SortingTextField("Sortowanie");
+    private JComboBox<String> sortingOptions;
     private CustomButton saveToFileButton = new CustomButton("Zapis Do Pliku");
     private CustomButton readFileButton = new CustomButton("Odczyt haseł z pliku szyfrowanego");
     private CheckBox checkBox = new CheckBox();
@@ -28,32 +32,6 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         this.add(passwordTablePanel, BorderLayout.CENTER);
     }
 
-    private void ButtonSetup(){
-        returnButton.addActionListener(this);
-        passwordsWiper.addActionListener(this);
-        addButton.addActionListener(this);
-        sortingButton.addActionListener(this);
-        saveToFileButton.addActionListener(this);
-        readFileButton.addActionListener(this);
-
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-        buttonsPanel.setOpaque(false);
-
-        buttonsPanel.add(returnButton);
-        buttonsPanel.add(Box.createHorizontalStrut(25));
-        buttonsPanel.add(passwordsWiper);
-        buttonsPanel.add(Box.createHorizontalStrut(25));
-        buttonsPanel.add(addButton);
-        buttonsPanel.add(Box.createHorizontalStrut(25));
-        buttonsPanel.add(sortingButton);
-        buttonsPanel.add(Box.createHorizontalStrut(25));
-        buttonsPanel.add(saveToFileButton);
-        buttonsPanel.add(Box.createHorizontalStrut(25));
-        buttonsPanel.add(readFileButton);
-        buttonsPanel.add(Box.createHorizontalGlue());
-    }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == returnButton)
@@ -70,8 +48,56 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         else if (e.getSource() == readFileButton){
             appManager.readDataFromEncryptedFile();
         }
+        else if (e.getSource() == sortingOptions){
+            // TODO
+        }
     }
 
+    private void handleSorting(){
+        
+    }
+    private void ButtonSetup(){
+        String[] sortingMethods = {SortingNames.sortingOption1, SortingNames.sortingOption2};
+        sortingOptions = new JComboBox<>(sortingMethods);
+        sortingOptions.setPreferredSize(new Dimension(150, 30));
+        sortingOptions.setMaximumSize(new Dimension(150, 30));
+        sortingOptions.setMinimumSize(new Dimension(150, 30));
+
+
+        returnButton.addActionListener(this);
+        passwordsWiper.addActionListener(this);
+        addButton.addActionListener(this);;
+        saveToFileButton.addActionListener(this);
+        readFileButton.addActionListener(this);
+        sortingOptions.addActionListener(this);
+
+
+        JPanel sortingPanel = new JPanel();
+        GridBagConstraints c = new GridBagConstraints();
+        sortingPanel.setOpaque(false);
+
+        sortingPanel.setLayout(new BoxLayout(sortingPanel, BoxLayout.Y_AXIS));
+        sortingPanel.add(sortingTextField);
+        sortingPanel.add(Box.createVerticalStrut(5));
+        sortingPanel.add(sortingOptions);
+        sortingPanel.add(Box.createVerticalStrut(10));
+
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+        buttonsPanel.setOpaque(false);
+
+        buttonsPanel.add(returnButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(passwordsWiper);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(addButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(sortingPanel);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(saveToFileButton);
+        buttonsPanel.add(Box.createHorizontalStrut(25));
+        buttonsPanel.add(readFileButton);
+        buttonsPanel.add(Box.createHorizontalGlue());
+    }
     private void handleSaveToFile() {
         MessageToUser message = new MessageToUser("Podaj hasło którym plik będzie szyfrowany (będzie potrzebne do odczytu)");
         JTextField passwordTextField = new JTextField(25);
@@ -169,6 +195,22 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
             }
         }
     }
+    private class SortingTextField extends JTextField{
+        public SortingTextField(String textInside) {
+            this.setFont(new Font("", Font.BOLD, 14));
+            this.setPreferredSize(new Dimension(150, 30));
+            this.setMaximumSize(new Dimension(150, 30));
+            this.setMinimumSize(new Dimension(150, 30));
+            this.setText(textInside);
+            this.setForeground(new Color(0xCCCCCC));
+            this.setHorizontalAlignment(JTextField.CENTER);
+            this.setFocusable(false);
+            this.setEditable(false);
+            this.setOpaque(false);
+            this.setBorder(null);
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

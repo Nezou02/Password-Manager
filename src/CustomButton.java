@@ -10,7 +10,7 @@ public class CustomButton extends JButton {
         this.setText(textInside);
         this.setFont(new Font("", Font.BOLD, 18));
         this.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        this.setFocusPainted(false);
+        this.setFocusable(false);
         this.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 3),new EmptyBorder(5, 5, 5, 5)));
     }
 }
