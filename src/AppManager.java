@@ -90,7 +90,6 @@ public class AppManager {
             }
         }
     }
-
     private void DecryptFile(String passwordGivenByUser, File file) {
         try{
 
@@ -106,7 +105,7 @@ public class AppManager {
             byte[] decrypted = cipher.doFinal(encrypted);
             String originalText = new String(decrypted, StandardCharsets.UTF_8);
 
-            //addDataToManager(originalText);
+            addDataToManager(originalText);
 
         } catch (javax.crypto.BadPaddingException e) {
             JOptionPane.showMessageDialog(mainPanel, "Złe hasło!", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
@@ -117,9 +116,18 @@ public class AppManager {
             JOptionPane.showMessageDialog(mainPanel, "Inny błąd podczas odszyfrowywania!", "Błąd", JOptionPane.ERROR_MESSAGE);
         }
     }
-
     private void addDataToManager(String originalText) {
+        String[] data = originalText.split("\n");
 
+        for (int i = 0; i < data.length; i += 3){
+            if (i + 2 < data.length) {
+                String site = data[i];
+                String login = data[i + 1];
+                String password = data[i + 2];
+                PasswordEntry rowData = new PasswordEntry(site, login, password);
+                addRowToTheManager(rowData);
+            }
+        }
     }
     public void saveDataToEncryptedFile(String passwordToFile){
         byte[] dataToSave;
