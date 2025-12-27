@@ -15,7 +15,7 @@ public class TableRowPanel extends JPanel implements ActionListener {
     private PasswordEntry userRowData;
     private AppManager appManager = AppManager.GetInstance();
 
-    GridBagConstraints c;
+    private GridBagConstraints c;
 
     public TableRowPanel(PasswordEntry passwordEntry){
         this.setLayout(new GridBagLayout());
@@ -34,7 +34,6 @@ public class TableRowPanel extends JPanel implements ActionListener {
 
         ButtonSetup();
         addRow(passwordEntry);
-        appManager.addData(this);
     }
     public TableRowPanel(){
         this.setLayout(new GridBagLayout());

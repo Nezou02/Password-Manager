@@ -40,6 +40,7 @@ public class AppManager {
     public void addRowToTheManager(PasswordEntry passwordEntry){
         TableRowPanel tableRowPanel = new TableRowPanel(passwordEntry);
         passwordTablePanel.AddRow(tableRowPanel);
+        this.addData(tableRowPanel);
     }
     public void clearManager(){
         passwordTablePanel.ClearTable();
@@ -199,4 +200,5 @@ public class AppManager {
             }
         }
     }
+    public List<TableRowPanel> getUserData (){ return userData; }
 }

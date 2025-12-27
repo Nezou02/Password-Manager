@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Random;
 //glowne ui od managera
 public class PasswordManagerPanel extends JPanel implements ActionListener {
@@ -49,12 +50,31 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
             appManager.readDataFromEncryptedFile();
         }
         else if (e.getSource() == sortingOptions){
-            // TODO
+            handleSorting();
         }
     }
 
     private void handleSorting(){
-        
+        passwordTablePanel.ClearTable();
+
+        List<TableRowPanel> userData = appManager.getUserData();
+        if (userData.isEmpty())
+            return;
+
+        if (sortingOptions.getSelectedItem() == SortingNames.sortingOption1)
+        {
+            for (int i = 0 ; i <= userData.size() - 1; i++){
+                passwordTablePanel.AddRow(userData.get(i));
+            }
+        }
+        else if (sortingOptions.getSelectedItem() == SortingNames.sortingOption2)
+        {
+            for (int i = userData.size() - 1; i >= 0; i--){
+                passwordTablePanel.AddRow(userData.get(i));
+            }
+        }
+        this.revalidate();
+        this.repaint();
     }
     private void ButtonSetup(){
         String[] sortingMethods = {SortingNames.sortingOption1, SortingNames.sortingOption2};
@@ -177,6 +197,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
 
             PasswordEntry passwordEntry = new PasswordEntry(site, login, password);
             appManager.addRowToTheManager(passwordEntry);
+            handleSorting();
         }
     }
     public PasswordTablePanel getPasswordTablePanel() { return passwordTablePanel; }
