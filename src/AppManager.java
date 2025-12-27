@@ -44,6 +44,7 @@ public class AppManager {
     }
     public void clearManager(){
         passwordTablePanel.ClearTable();
+        userData.clear();
     }
     public void removeData(TableRowPanel tableRowPanel){
         if(userData.contains(tableRowPanel)){
