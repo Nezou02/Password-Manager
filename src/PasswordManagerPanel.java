@@ -73,9 +73,10 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
     }
 
     private void handleSaveToFile() {
-        MessageToUser message = new MessageToUser("Podaj hasło którym plik będzie szyfrowany (będzie potrzebne do odczytu");
-        JTextField passwordTextField = new JTextField();
-
+        MessageToUser message = new MessageToUser("Podaj hasło którym plik będzie szyfrowany (będzie potrzebne do odczytu)");
+        JTextField passwordTextField = new JTextField(25);
+        JPanel textFieldCenterPanel = new JPanel(new FlowLayout());
+        textFieldCenterPanel.add(passwordTextField);
 
         JPanel popUpWindowsPanel = new JPanel();
         popUpWindowsPanel.setLayout(new BoxLayout(popUpWindowsPanel, BoxLayout.Y_AXIS));
@@ -84,7 +85,7 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         popUpWindowsPanel.add(Box.createVerticalStrut(25));
         popUpWindowsPanel.add(message);
         popUpWindowsPanel.add(Box.createVerticalStrut(25));
-        popUpWindowsPanel.add(passwordTextField);
+        popUpWindowsPanel.add(textFieldCenterPanel);
         popUpWindowsPanel.add(Box.createVerticalGlue());
 
         int result = JOptionPane.showOptionDialog(
