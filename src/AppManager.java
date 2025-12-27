@@ -21,7 +21,6 @@ public class AppManager {
 
     private AppManager(){}
 
-
     public static AppManager GetInstance(){
            if (appManager == null)
                appManager = new AppManager();
@@ -196,7 +195,7 @@ public class AppManager {
                 Files.write(fileToSave.toPath(), encryptedData);
             } catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Błąd zapisu pliku!");
+                JOptionPane.showMessageDialog(mainPanel, "Błąd zapisu pliku!", "Błąd" ,JOptionPane.WARNING_MESSAGE);
             }
         }
     }

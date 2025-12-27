@@ -134,9 +134,15 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
                 this, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
 
         if (result == 0){
+
             String site = userData.getSite();
             String login = userData.getLogin();
             String password = userData.getPassword();
+
+            if (password.isEmpty() && !checkBox.isSelected()){
+                JOptionPane.showMessageDialog(this, "Hasło nie może być puste!!", "ERROR" ,JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             if(checkBox.isSelected()) {
                 int numberOfCharacters = (Integer) numeberOfCharacters.getSelectedItem();
