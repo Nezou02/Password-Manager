@@ -47,15 +47,13 @@ public class AppManager {
     }
     public void removeData(TableRowPanel tableRowPanel){
         if(userData.contains(tableRowPanel)){
+
             userData.remove(tableRowPanel);
             passwordTablePanel.RemoveRow(tableRowPanel);
-
-            System.out.println("Liczba elementów w liście po usunieciu: " + userData.size());
         }
     }
     public void addData(TableRowPanel tableRowPanel){
         userData.add(tableRowPanel);
-        System.out.println("Liczba elementów w liście po dodaniu: " + userData.size());
     }
     public void readDataFromEncryptedFile(){
         JFileChooser fileChooser = new JFileChooser();
