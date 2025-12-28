@@ -137,12 +137,13 @@ public class PasswordManagerPanel extends JPanel implements ActionListener {
         int result = JOptionPane.showOptionDialog(
                 this, popUpWindowsPanel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null );
 
-        if (passwordTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Hasło jest obowiązkowe!!", "Zapis Pliku", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
 
         if (result == 0){
+            if (passwordTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Hasło jest obowiązkowe!!", "Zapis Pliku", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             appManager.saveDataToEncryptedFile(passwordTextField.getText());
         }
     }

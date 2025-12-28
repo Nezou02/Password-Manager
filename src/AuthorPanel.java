@@ -27,7 +27,7 @@ public class AuthorPanel extends JPanel implements ActionListener {
     }
 
     private void LabelSetup(){
-        String authorTextToDisplay = "Autorem tej wspaniałej aplikacji jest Wielki Programista Kamil Przęczek";
+        String authorTextToDisplay = "Autorem tej aplikacji jest Kamil Przęczek 🙂";
         authorLabel.setText(authorTextToDisplay);
         authorLabel.setFont(new Font("Comic Sans",Font.BOLD,25));
         authorLabel.setForeground(Color.WHITE);

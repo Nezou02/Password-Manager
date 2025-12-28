@@ -107,7 +107,7 @@ public class AppManager {
             addDataToManager(originalText);
 
         } catch (javax.crypto.BadPaddingException e) {
-            JOptionPane.showMessageDialog(mainPanel, "Złe hasło!", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainPanel, "Złe hasło lub brakuje danych w pliku!", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
         } catch (javax.crypto.IllegalBlockSizeException e) {
             JOptionPane.showMessageDialog(mainPanel, "Nie jest to zaszyfrowany plik AES", "Błąd odszyfrowania", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
